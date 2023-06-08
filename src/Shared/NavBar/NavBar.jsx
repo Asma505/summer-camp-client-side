@@ -28,7 +28,7 @@ const NavBar = () => {
     </>
     return (
         <div>
-            <div id="navbarbg" className='bg-sky-100'>
+            <div id="navbarbg" className='bg-slate-300'>
                 <div className="navbar md:w-11/12 md:mx-auto">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -64,7 +64,7 @@ const NavBar = () => {
                         <Link to='/login'><button className="p-3">Login</button></Link>}
                         
                         <div className={`Home ${theme}`}>
-                            <button id="togglebg" className="md:pl-3 bg-sky-100" onClick={toggleTheme}>Dark/Light</button>
+                            <button id="togglebg" className="md:pl-3 bg-slate-300" onClick={toggleTheme}>Dark/Light</button>
                         </div>                        
                     </div>
                 </div>

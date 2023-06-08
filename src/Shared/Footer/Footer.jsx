@@ -3,7 +3,7 @@ import '../NavBar/NavBar.css';
 
 const Footer = () => {
     return (
-        <div id='footer' className='bg-sky-100'>
+        <div id='footer' className='bg-slate-300'>
             <div className='md:grid md:grid-cols-3 md:gap-8 w-10/12 mx-auto py-10'>
                 <div className='my-10 mb-3'>                    
                     <h3 className='text-3xl font-bold mb-3'>Learn Language</h3>
