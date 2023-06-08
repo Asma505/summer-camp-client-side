@@ -22,3 +22,12 @@
     background-color: #333;
     border-color: #333;
 }
+
+.dark #footer{
+    background-color: #555;
+    color: #fff;    
+}
+
+.light #footer{
+    color: black;    
+}
