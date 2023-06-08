@@ -4,7 +4,7 @@
     font-weight: 500;    
 }
 
-.dark li a:hover{
+.dark a:hover{
     color: rgb(168 162 158);
 }
 
@@ -14,13 +14,18 @@
     font-weight: 500;
 }
 
-.light li a:hover{
+.light a:hover{
     color: rgb(107 114 128);
 }
 
 .dark #mobile-menu{
     background-color: #333;
     border-color: #333;
+}
+
+.light #mobile-menu{
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .dark #footer{
@@ -30,4 +35,12 @@
 
 .light #footer{
     color: black;    
+}
+
+.dark #navbarbg{
+    background-color: #555;
+}
+
+.dark #togglebg{
+    background-color: #555;
 }

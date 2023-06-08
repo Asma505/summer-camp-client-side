@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import './NavBar.css'
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const NavBar = () => {
+    const {user} = useContext(AuthContext);
     const [theme, setTheme] = useState('light');
 
     const toggleTheme = () => {
@@ -22,11 +24,11 @@ const NavBar = () => {
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/instructors'>Instructors</Link></li>
         <li><Link to='/classes'>Classes</Link></li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>        
+        {user && <li><Link to='/dashboard'>Dashboard</Link></li>}        
     </>
     return (
         <div>
-            <div className=''>
+            <div id="navbarbg" className='bg-sky-100'>
                 <div className="navbar md:w-11/12 md:mx-auto">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -38,11 +40,11 @@ const NavBar = () => {
                                     <li><Link to='/'>Home</Link></li>
                                     <li><Link to='/instructors'>Instructors</Link></li>
                                     <li><Link to='/classes'>Classes</Link></li>
-                                    <li><Link to='/dashboard'>Dashboard</Link></li>          
+                                    {user && <li><Link to='/dashboard'>Dashboard</Link></li>}          
                                 </div>
                             </ul>
                         </div>
-                        <a className="normal-case text-xl font-bold">Learn Language</a>
+                        <p className="normal-case text-xl font-bold">Learn Language</p>
                     </div>
                     <div className="navbar-center hidden lg:flex">
                         <ul className="flex gap-5 menu-horizontal px-1">
@@ -51,16 +53,18 @@ const NavBar = () => {
                     </div>
 
                     <div className="navbar-end">
-                        <div>
-                            <img src="" alt="" />
+                        {user ? <>
+                            <div>
+                            <img src={user.photoURL} alt="" />
                         </div>
 
-                        <Link><button className="btn">Logout</button></Link>
+                        <Link><button className="p-3">Logout</button></Link>
+                        </>:
                         
-                        <Link to='/login'><button className="btn">Login</button></Link>
+                        <Link to='/login'><button className="p-3">Login</button></Link>}
                         
                         <div className={`Home ${theme}`}>
-                            <button className="md:pl-3" onClick={toggleTheme}>Dark/Light</button>
+                            <button id="togglebg" className="md:pl-3 bg-sky-100" onClick={toggleTheme}>Dark/Light</button>
                         </div>                        
                     </div>
                 </div>
