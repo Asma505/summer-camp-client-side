@@ -15,7 +15,7 @@ const Footer = () => {
                 </div>
                 <div className='my-10'>
                     <h3 className='text-xl font-bold mb-3'>Contact</h3>                    
-                    <p className='underline underline-offset-8 mb-3'>Phone: +1-202-555-0150</p>
+                    <p className='underline underline-offset-8 mb-3'>Phone: +1-202-555-0150, +1 505-736-3129</p>
                     <p>Email: info@example.com</p>
                 </div>
             </div>
