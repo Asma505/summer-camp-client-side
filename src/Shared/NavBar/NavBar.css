@@ -44,3 +44,10 @@
 .dark #togglebg{
     background-color: #555;
 }
+.dark #registerText{
+    color: #333;
+}
+
+.dark #loginText{
+    color: #333;
+}

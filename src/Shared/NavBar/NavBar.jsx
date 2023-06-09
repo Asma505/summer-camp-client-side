@@ -4,8 +4,9 @@ import './NavBar.css'
 import { AuthContext } from "../../providers/AuthProvider";
 
 
+
 const NavBar = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [theme, setTheme] = useState('light');
 
     const toggleTheme = () => {
@@ -20,11 +21,17 @@ const NavBar = () => {
         document.body.className = theme;
     }, [theme]);
 
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error));
+    }
+
     const menues = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/instructors'>Instructors</Link></li>
         <li><Link to='/classes'>Classes</Link></li>
-        {user && <li><Link to='/dashboard'>Dashboard</Link></li>}        
+        {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
     </>
     return (
         <div>
@@ -40,7 +47,7 @@ const NavBar = () => {
                                     <li><Link to='/'>Home</Link></li>
                                     <li><Link to='/instructors'>Instructors</Link></li>
                                     <li><Link to='/classes'>Classes</Link></li>
-                                    {user && <li><Link to='/dashboard'>Dashboard</Link></li>}          
+                                    {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
                                 </div>
                             </ul>
                         </div>
@@ -55,17 +62,17 @@ const NavBar = () => {
                     <div className="navbar-end">
                         {user ? <>
                             <div>
-                            <img src={user.photoURL} alt="" />
-                        </div>
+                                <img className="w-16" src={user.photoURL} alt="" />
+                            </div>
 
-                        <Link><button className="p-3">Logout</button></Link>
-                        </>:
-                        
-                        <Link to='/login'><button className="p-3">Login</button></Link>}
-                        
+                            <Link onClick={handleLogOut}><button className="p-3">Logout</button></Link>
+                        </> :
+
+                            <Link to='/login'><button className="p-3">Login</button></Link>}
+
                         <div className={`Home ${theme}`}>
                             <button id="togglebg" className="md:pl-3 bg-slate-300" onClick={toggleTheme}>Dark/Light</button>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
