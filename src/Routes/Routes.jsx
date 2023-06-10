@@ -6,6 +6,10 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Instructor from "../pages/Instructor/Instructor";
 import Classes from "../pages/Classes/Classes";
+import Dashboard from "../Layout/Dashboard";
+import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
+
+
 
 const router = createBrowserRouter([
     {
@@ -31,8 +35,18 @@ const router = createBrowserRouter([
             {
                 path: "/classes",
                 element: <Classes></Classes>
-            }
+            }            
         ],
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path: "manageusers",
+                element: <ManageUsers></ManageUsers>
+            }
+        ]
     },
     {
         path: '*',
