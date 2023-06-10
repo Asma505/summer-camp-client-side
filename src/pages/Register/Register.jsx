@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../../Shared/NavBar/NavBar.css';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 
@@ -24,19 +25,55 @@ const Register = () => {
                 console.log(loggedUser);
                 updateUserProfile(data.Name, data.PhotoURL)
                     .then(() => {
-                        console.log('user profile info updated');
-                        reset();
+                        const savedUser = { name: data.Name, email: data.Email, photo: data.PhotoURL }
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(savedUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    navigate('/');
+                                }
+                            })
+
                     })
-                navigate('/');
+                    .catch(error => console.log(error));
             })
-    }
+    };
 
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
-                navigate(from, { replace: true });
+                const savedUser = { name: loggedInUser.displayName, email: loggedInUser.email, photo: loggedInUser.photoURL };
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(savedUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            navigate(from, { replace: true });
+                        }
+                        navigate(from, { replace: true });
+                    })
+                    
             })
     }
 
@@ -96,7 +133,7 @@ const Register = () => {
                         </div>
                         <div id='loginText' className='text-center'>
                             <div className='text-center mt-3'>
-                                <button onClick={handleGoogleSignIn} className='btn bg-slate-300 rounded-lg'> Login with Google </button>
+                                <button onClick={handleGoogleSignIn} className='btn bg-slate-300 rounded-lg'> Register with Google </button>
                             </div>
                             <p><small>already have an account? </small><Link to="/login"><span>Login</span></Link></p>
                         </div>

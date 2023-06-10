@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../../Shared/NavBar/NavBar.css'
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const { signIn, googleSignIn } = useContext(AuthContext);
@@ -20,6 +21,15 @@ const Login = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                Swal.fire({
+                    title: 'Login Successful.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
                 navigate(from, { replace: true });
             })
     }
@@ -27,12 +37,26 @@ const Login = () => {
 
     const handleGoogleSignIn = () => {
         googleSignIn()
-        .then(result => {
-            const loggedInUser = result.user;
-            console.log(loggedInUser);
-            navigate(from, {replace: true});                       
-        })        
-    }    
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                const savedUser = { name: loggedInUser.displayName, email: loggedInUser.email, photo: loggedInUser.photoURL };
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(savedUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            navigate(from, { replace: true });
+                        }
+                        navigate(from, { replace: true });
+                    })
+            })
+    }
 
 
     return (
