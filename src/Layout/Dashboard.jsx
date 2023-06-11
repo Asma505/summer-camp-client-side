@@ -4,6 +4,12 @@ import Footer from "../Shared/Footer/Footer";
 
 
 const Dashboard = () => {
+
+    const isAdmin = true;
+
+    const isInstructor = false;
+
+
     return (
         <div>
             <NavBar></NavBar>
@@ -17,13 +23,28 @@ const Dashboard = () => {
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 h-full bg-slate-200 text-base-content">
-                        {/* Sidebar content here */}
-                        <li><Link>Manage Classes</Link></li>
-                        <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
-                        <li><Link>My Selected Classes</Link></li>
-                        <li><Link>My Enrolled Classes</Link></li>
-                        <li><Link>Add a Class</Link></li>
-                        <li><Link>My Classes</Link></li>                        
+
+                        {
+                            isAdmin ? <>
+                                <li><Link>Admin Dashboard:</Link></li>
+                                <li><Link>Manage Classes</Link></li>
+                                <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
+                            </> : 
+                            isInstructor ? <><li><Link>Instructor Dashboard:</Link></li>
+                                <li><Link>Add a Class</Link></li>
+                                <li><Link>My Classes</Link></li>
+                            </> :
+                                <><li><Link>Student Dashboard:</Link></li>
+                                    <li><Link>My Selected Classes</Link></li>
+                                    <li><Link>My Enrolled Classes</Link></li>
+                                </>
+                        }
+
+
+
+
+
+
                     </ul>
 
                 </div>
