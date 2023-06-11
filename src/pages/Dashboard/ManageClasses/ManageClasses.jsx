@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 
 
 
+
 const ManageClasses = () => {
-    const [details, , refetch] = useData();    
+    const [details, , refetch] = useData();
+
 
     const handleApproved = course => {
         fetch(`http://localhost:5000/details/approved/${course._id}`, {
@@ -13,7 +15,7 @@ const ManageClasses = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount) {                    
+                if (data.modifiedCount) {
                     refetch();
                     Swal.fire({
                         position: 'top-end',
@@ -22,18 +24,18 @@ const ManageClasses = () => {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    
+
                 }
             })
     }
-    
+
     const handleDeny = course => {
         fetch(`http://localhost:5000/details/denied/${course._id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount) {                    
+                if (data.modifiedCount) {
                     refetch();
                     Swal.fire({
                         position: 'top-end',
@@ -42,17 +44,13 @@ const ManageClasses = () => {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    
+
                 }
             })
     }
 
-    const handleClick = (event) => {
-        event.currentTarget.disabled = true;        
-    };
 
 
-    
     return (
         <div>
             <h3 className="text-3xl font-bold text-center">All The Classes</h3>
@@ -103,9 +101,9 @@ const ManageClasses = () => {
                                         <p>{course.status}</p>}
                                 </td>
                                 <td>
-                                    <button onClick={(e) => {handleApproved(course);handleClick(e)}}  className="btn btn-xs btn-success">Approve</button>
+                                    <button onClick={() => handleApproved(course)} disabled={course.status === "denied" || course.status === "approved"} className="btn btn-xs btn-success">Approve</button>
 
-                                    <button onClick={(e)=>{handleDeny(course);handleClick(e)}}  className="btn btn-xs btn-error my-1">Deny</button>
+                                    <button onClick={() => handleDeny(course)} disabled={course.status === "denied" || course.status === "approved"} className="btn btn-xs btn-error my-1">Deny</button>
 
                                     <Link to={`/dashboard/feedback/${course._id}`}><button className="btn btn-xs btn-info">Feedback</button></Link>
                                 </td>

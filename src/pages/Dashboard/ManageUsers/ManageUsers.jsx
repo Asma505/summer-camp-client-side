@@ -46,9 +46,6 @@ const ManageUsers = () => {
             })
     }
 
-    const handleClick = (event) => {
-        event.currentTarget.disabled = true;        
-    };
 
     return (
         <div>
@@ -92,10 +89,10 @@ const ManageUsers = () => {
                                     <p>{user.role}</p>}
                                 </td>
                                 <td>
-                                    <button onClick={(e) => {handleInstructor(user);handleClick(e)}} className="btn bg-slate-300">Make Instructor</button>
+                                    <button onClick={() => handleInstructor(user)} disabled={user.role === "Instructor"} className="btn bg-slate-300">Make Instructor</button>
                                 </td>
                                 <td>
-                                    <button onClick={(e) => {handleAdmin(user);handleClick(e)}} className="btn bg-slate-300">Make Admin</button>
+                                    <button onClick={() => handleAdmin(user)} disabled={user.role === "Admin"} className="btn bg-slate-300">Make Admin</button>
                                 </td>
                             </tr>)
                         }
