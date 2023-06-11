@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import NavBar from "../Shared/NavBar/NavBar";
 import Footer from "../Shared/Footer/Footer";
+import { FaChalkboardTeacher, FaCheckCircle, FaFolderPlus, FaForward, FaGraduationCap, FaList, FaSitemap, FaUserShield, FaUsers } from 'react-icons/fa';
 
 
 const Dashboard = () => {
@@ -22,31 +23,24 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 h-full bg-slate-200 text-base-content">
+                    <ul className="menu p-4 w-80 h-full bg-slate-200 text-base-content text-xl">
 
                         {
                             isAdmin ? <>
-                                <li><Link>Admin Dashboard:</Link></li>
-                                <li><Link>Manage Classes</Link></li>
-                                <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
+                                <li><Link><FaUserShield></FaUserShield> Admin Dashboard:</Link></li>
+                                <li><Link><FaList></FaList> Manage Classes</Link></li>
+                                <li><Link to="/dashboard/manageusers"><FaUsers></FaUsers> Manage Users</Link></li>
                             </> : 
-                            isInstructor ? <><li><Link>Instructor Dashboard:</Link></li>
-                                <li><Link>Add a Class</Link></li>
-                                <li><Link>My Classes</Link></li>
+                            isInstructor ? <><li><Link><FaChalkboardTeacher></FaChalkboardTeacher> Instructor Dashboard:</Link></li>
+                                <li><Link><FaFolderPlus></FaFolderPlus> Add a Class</Link></li>
+                                <li><Link><FaSitemap></FaSitemap> My Classes</Link></li>
                             </> :
-                                <><li><Link>Student Dashboard:</Link></li>
-                                    <li><Link>My Selected Classes</Link></li>
-                                    <li><Link>My Enrolled Classes</Link></li>
+                                <><li><Link><FaGraduationCap></FaGraduationCap> Student Dashboard:</Link></li>
+                                    <li><Link><FaCheckCircle></FaCheckCircle> My Selected Classes</Link></li>
+                                    <li><Link><FaForward></FaForward> My Enrolled Classes</Link></li>
                                 </>
                         }
-
-
-
-
-
-
                     </ul>
-
                 </div>
             </div>
             <Footer></Footer>
