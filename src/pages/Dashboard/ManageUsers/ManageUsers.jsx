@@ -1,9 +1,108 @@
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 
 const ManageUsers = () => {
+    const { data: users = [], refetch, } = useQuery(['users'], async () => {
+        const res = await fetch('http://localhost:5000/users')
+        return res.json();
+    });
+
+    const handleAdmin = user => {
+        fetch(`http://localhost:5000/users/admin/${user._id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} Successfully Added As Admin`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+    }
+
+    const handleInstructor = user => {
+        fetch(`http://localhost:5000/users/instructor/${user._id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} Successfully Added As Instructor`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+    }
+
+    const handleClick = (event) => {
+        event.currentTarget.disabled = true;        
+    };
+
     return (
         <div>
-            <h3>Manage Users Page</h3>
+            <h3 className="text-3xl font-bold text-center">Total Number of Users: {users.length}</h3>
+            <div className="overflow-x-auto py-10">
+                <table className="table">
+                    {/* head */}
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Change Role</th>
+                            <th>Change Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            users.map((user, index) => <tr key={user._id}>
+                                <td>
+                                    {index + 1}
+                                </td>
+                                <td>
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle w-12 h-12">
+                                                <img src={user.photo} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h3>{user.name}</h3>
+                                </td>
+                                <td>
+                                    <h3>{user.email}</h3>
+                                </td>
+                                <td>{user.role === "Admin" || user.role === "Instructor" ? <p>{user.role === "Admin" ? "Admin" : "Instructor"}</p> :
+                                    <p>{user.role}</p>}
+                                </td>
+                                <td>
+                                    <button onClick={(e) => {handleInstructor(user);handleClick(e)}} className="btn bg-slate-300">Make Instructor</button>
+                                </td>
+                                <td>
+                                    <button onClick={(e) => {handleAdmin(user);handleClick(e)}} className="btn bg-slate-300">Make Admin</button>
+                                </td>
+                            </tr>)
+                        }
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
