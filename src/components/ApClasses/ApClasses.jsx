@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useCourse from "../../hooks/useCourse";
+import useAdmin from "../../hooks/useAdmin";
+import useInstructor from "../../hooks/useInstructor";
 
 
 
@@ -10,19 +13,16 @@ const ApClasses = ({ aClass }) => {
 
     const { user } = useContext(AuthContext);
     const location = useLocation();
+    const [, refetch] = useCourse();
+    const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
     const navigate = useNavigate();
 
     const noSeat = available_seats === 0; 
-    
-    const admin = available_seats === 10;
-
-    const instructor = available_seats === 12;
-    
-    
 
     const handleSelectCourse = aClass => {
         console.log(aClass);
-        if (user) {
+        if (user && user.email) {
             const selectedCourse = { courseId: _id, courseName: class_name, courseImage: class_image, instructorName: instructor_name, availableSeats: available_seats, price, email: user.email };
 
             fetch('http://localhost:5000/course', {
@@ -35,6 +35,7 @@ const ApClasses = ({ aClass }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
+                        refetch();
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -73,7 +74,7 @@ const ApClasses = ({ aClass }) => {
                     <button disabled={true} onClick={() => handleSelectCourse(aClass)} className="btn btn-block bg-slate-300 mt-5">Select</button>
                 </div> :
                 
-                admin || instructor ? 
+                isInstructor || isAdmin? 
                 
                 <div id="abc" className="w-10/12 mx-auto p-5">
                     <img src={class_image} alt="" />

@@ -2,13 +2,18 @@ import { Link, Outlet } from "react-router-dom";
 import NavBar from "../Shared/NavBar/NavBar";
 import Footer from "../Shared/Footer/Footer";
 import { FaChalkboardTeacher, FaCheckCircle, FaFolderPlus, FaForward, FaGraduationCap, FaList, FaSitemap, FaUserShield, FaUsers } from 'react-icons/fa';
+import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 
 const Dashboard = () => {
 
-    const isAdmin = true;
+    // const isAdmin = true;
 
-    const isInstructor = false;
+    // const isInstructor = false;
+
+    const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
 
 
     return (
