@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import NavBar from "../Shared/NavBar/NavBar";
 import Footer from "../Shared/Footer/Footer";
-import { FaChalkboardTeacher, FaCheckCircle, FaFolderPlus, FaForward, FaGraduationCap, FaList, FaSitemap, FaUserShield, FaUsers } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaCheckCircle, FaFolderPlus, FaForward, FaGraduationCap, FaHistory, FaList, FaSitemap, FaUserShield, FaUsers } from 'react-icons/fa';
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 
@@ -41,8 +41,9 @@ const Dashboard = () => {
                                 <li><Link><FaSitemap></FaSitemap> My Classes</Link></li>
                             </> :
                                 <><li><Link><FaGraduationCap></FaGraduationCap> Student Dashboard:</Link></li>
-                                    <li><Link><FaCheckCircle></FaCheckCircle> My Selected Classes</Link></li>
-                                    <li><Link><FaForward></FaForward> My Enrolled Classes</Link></li>
+                                    <li><Link to="/dashboard/selectedclass"><FaCheckCircle></FaCheckCircle> My Selected Classes</Link></li>
+                                    <li><Link to="/dashboard/enrolledclass"><FaForward></FaForward> My Enrolled Classes</Link></li>
+                                    <li><Link to="/dashboard/paymenthistory"><FaHistory></FaHistory> Payment History</Link></li>
                                 </>
                         }
                     </ul>

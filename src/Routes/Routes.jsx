@@ -11,6 +11,11 @@ import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import ManageClasses from "../pages/Dashboard/ManageClasses/ManageClasses";
 import Feedback from "../pages/Dashboard/Feedback/Feedback";
+import AdminRoute from "./AdminRoute";
+import SelectedClasses from "../pages/SelectedClasses/SelectedClasses";
+import EnrolledClasses from "../pages/EnrolledClasses/EnrolledClasses";
+import PaymentHistory from "../pages/PaymentHistory/PaymentHistory";
+import Payment from "../pages/Payment/Payment";
 
 
 
@@ -47,16 +52,32 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "manageusers",
-                element: <ManageUsers></ManageUsers>
+                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
                 path: "manageclasses",
-                element: <ManageClasses></ManageClasses>
+                element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
             },
             {
                 path: "feedback/:id",
                 element: <Feedback></Feedback>,
                 loader: ({params}) => fetch(`http://localhost:5000/details/${params.id}`)
+            },
+            {
+                path: "selectedclass",
+                element: <SelectedClasses></SelectedClasses>
+            },
+            {
+                path: "enrolledclass",
+                element: <EnrolledClasses></EnrolledClasses>
+            },
+            {
+                path: "paymenthistory",
+                element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: "payment/:id",
+                element: <Payment></Payment>                
             }
         ]
     },
