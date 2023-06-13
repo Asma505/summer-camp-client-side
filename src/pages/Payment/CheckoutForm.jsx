@@ -5,7 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 
 
-const CheckoutForm = ({price}) => {
+const CheckoutForm = ({price, loadedData}) => {
     const stripe = useStripe();
     const elements = useElements();
     const {user} = useContext(AuthContext);
@@ -17,11 +17,13 @@ const CheckoutForm = ({price}) => {
 
 
     useEffect(()=>{
-        axiosSecure.post('/create-payment-intent', {price})
+        if(price > 0){
+            axiosSecure.post('/create-payment-intent', {price})
         .then(res => {
             console.log(res.data.clientSecret);
             setClientSecret(res.data.clientSecret);
         })
+        }
     }, [price, axiosSecure])
 
     const handleSubmit = async (event) => {
@@ -35,7 +37,7 @@ const CheckoutForm = ({price}) => {
         if (card === null) {
             return
         }
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error} = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
@@ -44,8 +46,7 @@ const CheckoutForm = ({price}) => {
             setCardError(error.message)
         }
         else {
-            setCardError('');
-            console.log('payment method', paymentMethod)
+            setCardError('');            
         }
 
         setProcessing(true);
@@ -68,7 +69,23 @@ const CheckoutForm = ({price}) => {
           setProcessing(false)
           console.log('payment intent', paymentIntent);
           if(paymentIntent.status === 'succeeded'){
-            setTransactionId(paymentMethod.id);            
+            setTransactionId(paymentIntent.id);
+            const payment = {
+                email: user?.email, 
+                transactionId: paymentIntent.id,
+                price,
+                date: new Date(),
+                course: loadedData[0]._id,
+                courseId: loadedData[0].courseId,
+                courseName: loadedData[0].courseName
+            }
+            axiosSecure.post('/payments', payment)
+            .then(res => {
+                console.log(res.data);
+                if(res.data.insertedId){
+                    alert('Payment Confirmed');
+                }
+            })            
           }
     }
 
