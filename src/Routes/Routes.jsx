@@ -16,6 +16,9 @@ import SelectedClasses from "../pages/SelectedClasses/SelectedClasses";
 import EnrolledClasses from "../pages/EnrolledClasses/EnrolledClasses";
 import PaymentHistory from "../pages/PaymentHistory/PaymentHistory";
 import Payment from "../pages/Payment/Payment";
+import MyClasses from "../pages/MyClasses/MyClasses";
+import InstructorRoute from "./InstructorRoute";
+import AddAClass from "../pages/AddAClass/AddAClass";
 
 
 
@@ -79,6 +82,14 @@ const router = createBrowserRouter([
                 path: "payment/:id",
                 element: <Payment></Payment>,
                 loader: ({params}) => fetch(`http://localhost:5000/course/${params.id}`)                
+            },
+            {
+                path: "myclasses",
+                element: <InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+            },
+            {
+                path: "addaclass",
+                element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
             }
         ]
     },

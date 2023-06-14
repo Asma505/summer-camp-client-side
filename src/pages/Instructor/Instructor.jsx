@@ -12,7 +12,7 @@ const Instructor = () => {
                         <div className="text-center text-2xl py-5">
                             <img src={data.instructor_image} alt="" />
                             <h3 className="py-3">{data.instructor_name}</h3>
-                            <p>Email: {data.instructor_email}</p>
+                            <p>Email: {data.email}</p>
                         </div>
                     </div>)
                 }

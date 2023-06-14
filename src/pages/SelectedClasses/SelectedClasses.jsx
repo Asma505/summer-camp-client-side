@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const SelectedClasses = () => {
     const [course, refetch] = useCourse();
-    console.log(course);    
+    console.log(course);
 
     const handleDelete = c => {
         Swal.fire({
@@ -38,7 +38,7 @@ const SelectedClasses = () => {
     return (
         <div>
             <div className="text-center">
-                <h3 className="text-3xl">Total Selected Classes: {course.length}</h3>                
+                <h3 className="text-3xl">Total Selected Classes: {course.length}</h3>
             </div>
             <div className="overflow-x-auto py-10">
                 <table className="table">
@@ -49,7 +49,6 @@ const SelectedClasses = () => {
                             <th>Course Image</th>
                             <th>Course Name</th>
                             <th>Instructor Name</th>
-                            <th>Available Seats</th>
                             <th>Price</th>
                             <th>Delete</th>
                             <th>Pay</th>
@@ -77,14 +76,11 @@ const SelectedClasses = () => {
                                 </td>
                                 <td>{c.instructorName
                                 }</td>
-                                <td className="text-center">
-                                    {c.availableSeats}
-                                </td>
                                 <td>
                                     {c.price}
                                 </td>
                                 <td>
-                                    <button onClick={()=> handleDelete(c)} className="btn bg-slate-300">DELETE</button>
+                                    <button onClick={() => handleDelete(c)} className="btn bg-slate-300">DELETE</button>
                                 </td>
                                 <td>
                                     <Link to={`/dashboard/payment/${c._id}`}><button className="btn bg-slate-300">PAY</button></Link>

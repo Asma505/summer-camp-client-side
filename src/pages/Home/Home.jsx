@@ -11,7 +11,7 @@ import learning from '../../assets/pexels-max-fischer-5212695.jpg';
 
 const Home = () => {
     const [details] = useData();
-    const popular = details.slice(0, 6);
+    const popular = details?.slice(0, 6);
 
     return (
         <div>

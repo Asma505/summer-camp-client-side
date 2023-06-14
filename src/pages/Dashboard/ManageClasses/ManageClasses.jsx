@@ -88,7 +88,7 @@ const ManageClasses = () => {
                                     {course.instructor_name}
                                 </td>
                                 <td>
-                                    {course.instructor_email}
+                                    {course.email}
                                 </td>
                                 <td className="text-center">
                                     {course.available_seats}

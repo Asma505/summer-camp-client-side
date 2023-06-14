@@ -35,16 +35,16 @@ const Dashboard = () => {
                                 <li><Link><FaUserShield></FaUserShield> Admin Dashboard:</Link></li>
                                 <li><Link to="/dashboard/manageclasses"><FaList></FaList> Manage Classes</Link></li>
                                 <li><Link to="/dashboard/manageusers"><FaUsers></FaUsers> Manage Users</Link></li>
-                            </> : 
-                            isInstructor ? <><li><Link><FaChalkboardTeacher></FaChalkboardTeacher> Instructor Dashboard:</Link></li>
-                                <li><Link><FaFolderPlus></FaFolderPlus> Add a Class</Link></li>
-                                <li><Link><FaSitemap></FaSitemap> My Classes</Link></li>
                             </> :
-                                <><li><Link><FaGraduationCap></FaGraduationCap> Student Dashboard:</Link></li>
-                                    <li><Link to="/dashboard/selectedclass"><FaCheckCircle></FaCheckCircle> My Selected Classes</Link></li>
-                                    <li><Link to="/dashboard/enrolledclass"><FaForward></FaForward> My Enrolled Classes</Link></li>
-                                    <li><Link to="/dashboard/paymenthistory"><FaHistory></FaHistory> Payment History</Link></li>
-                                </>
+                                isInstructor ? <><li><Link><FaChalkboardTeacher></FaChalkboardTeacher> Instructor Dashboard:</Link></li>
+                                    <li><Link to="/dashboard/myclasses"><FaSitemap></FaSitemap> My Classes</Link></li>
+                                    <li><Link to="/dashboard/addaclass"><FaFolderPlus></FaFolderPlus> Add a Class</Link></li>
+                                </> :
+                                    <><li><Link><FaGraduationCap></FaGraduationCap> Student Dashboard:</Link></li>
+                                        <li><Link to="/dashboard/selectedclass"><FaCheckCircle></FaCheckCircle> My Selected Classes</Link></li>
+                                        <li><Link to="/dashboard/enrolledclass"><FaForward></FaForward> My Enrolled Classes</Link></li>
+                                        <li><Link to="/dashboard/paymenthistory"><FaHistory></FaHistory> Payment History</Link></li>
+                                    </>
                         }
                     </ul>
                 </div>

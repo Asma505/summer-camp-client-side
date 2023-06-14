@@ -12,7 +12,7 @@ const Payment = () => {
 
     return (
         <div className="w-8/12">
-            <h3>Please Process Payment</h3>
+            <h3 className="text-3xl font-bold text-center py-10">Please Process Payment</h3>
             <Elements stripe={stripePromise}>
                 <CheckoutForm loadedData={loadedData} price={loadedData[0].price}></CheckoutForm>
             </Elements>
