@@ -1,9 +1,11 @@
 import useMyClass from "../../hooks/useMyClass";
+import Mc from "../Mc/Mc";
 
 
 
 const MyClasses = () => {
-    const [mycourse] = useMyClass();
+    const [mycourse] = useMyClass(); 
+    
     return (
         <div>
             <h3 className="text-3xl font-bold text-center">My Classes</h3>
@@ -24,39 +26,7 @@ const MyClasses = () => {
                     </thead>
                     <tbody>
                         {
-                            mycourse.map(mc => <tr key={mc._id}>
-                                <td>
-                                    <div className="flex items-center space-x-3">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle w-12 h-12">
-                                                <img src={mc.class_image} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    {mc.class_name}
-                                </td>
-                                <td>
-                                    {mc.instructor_name}
-                                </td>
-                                <td className="text-center">
-                                    {mc.num_students}
-                                </td>
-                                <td className="text-center">
-                                    ${mc.price}
-                                </td>
-                                <td>
-                                    {mc.status === "approved" || mc.status === "denied" ? <p>{mc.status === "approved" ? "approved" : "denied"}</p> :
-                                        <p>{mc.status}</p>}
-                                </td>
-                                <td>
-                                    {mc.feedback}
-                                </td>
-                                <td>
-                                    <button className="btn bg-slate-300">Update</button>
-                                </td>
-                            </tr>)
+                            mycourse.map(mc => <Mc key={mc._id} mc={mc}></Mc>)
                         }
                     </tbody>
                 </table>

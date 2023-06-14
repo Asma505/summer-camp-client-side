@@ -19,6 +19,7 @@ import Payment from "../pages/Payment/Payment";
 import MyClasses from "../pages/MyClasses/MyClasses";
 import InstructorRoute from "./InstructorRoute";
 import AddAClass from "../pages/AddAClass/AddAClass";
+import Update from "../pages/Update/Update";
 
 
 
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "feedback/:id",
-                element: <Feedback></Feedback>,
+                element: <AdminRoute><Feedback></Feedback></AdminRoute>,
                 loader: ({params}) => fetch(`http://localhost:5000/details/${params.id}`)
             },
             {
@@ -90,6 +91,11 @@ const router = createBrowserRouter([
             {
                 path: "addaclass",
                 element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
+            },
+            {
+                path: "update/:id",
+                element: <InstructorRoute><Update></Update></InstructorRoute>,
+                loader: ({params}) => fetch(`http://localhost:5000/mycourse/${params.id}`)
             }
         ]
     },

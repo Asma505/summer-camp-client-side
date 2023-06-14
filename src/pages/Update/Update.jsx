@@ -2,29 +2,27 @@ import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
-const Feedback = () => {
+const Update = () => {
     const loadedData = useLoaderData();
-    console.log("data", loadedData);
+    const { _id} = loadedData[0]; 
 
-    const { _id} = loadedData[0];    
-
-    const handleFeedback = event => {
+    const handleUpdate = event => {
         event.preventDefault();
 
         const form = event.target;        
-        const feedback = form.feedback.value;
+        const price = parseInt(form.price.value);
 
         form.reset('');
 
-        const sendFeedback = {feedback};
-        console.log(sendFeedback);
+        const update = {price};
+        console.log(update);
 
-        fetch(`http://localhost:5000/details/${_id}`, {
+        fetch(`http://localhost:5000/mycourse/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(sendFeedback)
+            body: JSON.stringify(update)
         })
             .then(res => res.json())
             .then(data => {
@@ -32,7 +30,7 @@ const Feedback = () => {
                 if (data.modifiedCount > 0) {
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Feedback Submitted Successfully',
+                        text: 'Price Updated Successfully',
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     })
@@ -41,17 +39,17 @@ const Feedback = () => {
     }
     return (
         <div className="w-9/12 mx-auto my-16">
-            <p className="text-3xl font-bold text-center my-10">Send Feedback</p>
+            <p className="text-3xl font-bold text-center my-10">Update Price</p>
             
             <p className="text-3xl text-center my-10"></p>
-            <form onSubmit={handleFeedback}>                
+            <form onSubmit={handleUpdate}>                
                 <div className="form-control w-full">
                     <label className="label">
-                        <span className="label-text">Your Feedback</span>
+                        <span className="label-text">Price</span>
                     </label>
                     <label className="input-group">
-                        <span>Your Feedback</span>
-                        <input type="text" name="feedback"  placeholder="Write Your Feedback" className="input input-bordered w-full" />
+                        <span>Price</span>
+                        <input type="text" name="price"  placeholder="Update Price" className="input input-bordered w-full" />
                     </label>
                 </div>
                 <input className="btn bg-slate-300 w-full my-10" type="submit" value="Submit" />
@@ -60,4 +58,4 @@ const Feedback = () => {
     );
 };
 
-export default Feedback;
+export default Update;
