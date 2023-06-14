@@ -20,6 +20,7 @@ import MyClasses from "../pages/MyClasses/MyClasses";
 import InstructorRoute from "./InstructorRoute";
 import AddAClass from "../pages/AddAClass/AddAClass";
 import Update from "../pages/Update/Update";
+import Welcome from "../pages/Dashboard/Welcome/Welcome";
 
 
 
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
-        children: [
+        children: [            
             {
                 path: "manageusers",
                 element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
@@ -65,8 +66,8 @@ const router = createBrowserRouter([
             {
                 path: "feedback/:id",
                 element: <AdminRoute><Feedback></Feedback></AdminRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/details/${params.id}`)
-            },
+                loader: ({params}) => fetch(`https://summer-camp-school-server-rho-sandy.vercel.app/details/${params.id}`)
+            },            
             {
                 path: "selectedclass",
                 element: <SelectedClasses></SelectedClasses>
@@ -82,8 +83,8 @@ const router = createBrowserRouter([
             {
                 path: "payment/:id",
                 element: <Payment></Payment>,
-                loader: ({params}) => fetch(`http://localhost:5000/course/${params.id}`)                
-            },
+                loader: ({params}) => fetch(`https://summer-camp-school-server-rho-sandy.vercel.app/course/${params.id}`)                
+            },            
             {
                 path: "myclasses",
                 element: <InstructorRoute><MyClasses></MyClasses></InstructorRoute>
@@ -95,7 +96,11 @@ const router = createBrowserRouter([
             {
                 path: "update/:id",
                 element: <InstructorRoute><Update></Update></InstructorRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/mycourse/${params.id}`)
+                loader: ({params}) => fetch(`https://summer-camp-school-server-rho-sandy.vercel.app/mycourse/${params.id}`)
+            },
+            {
+                path: "welcome",
+                element: <Welcome></Welcome>
             }
         ]
     },

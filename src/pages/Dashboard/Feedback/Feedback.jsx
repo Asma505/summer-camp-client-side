@@ -19,7 +19,7 @@ const Feedback = () => {
         const sendFeedback = {feedback};
         console.log(sendFeedback);
 
-        fetch(`http://localhost:5000/details/${_id}`, {
+        fetch(`https://summer-camp-school-server-rho-sandy.vercel.app/details/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

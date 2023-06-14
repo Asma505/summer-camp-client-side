@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../../Shared/NavBar/NavBar.css'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,7 @@ const Login = () => {
     const { signIn, googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [passwordShown, setPasswordShown] = useState(false);
 
 
     const from = location.state?.from?.pathname || "/";
@@ -40,8 +41,8 @@ const Login = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
-                const savedUser = { name: loggedInUser.displayName, email: loggedInUser.email, photo: loggedInUser.photoURL, role: 'Student'};
-                fetch('http://localhost:5000/users', {
+                const savedUser = { name: loggedInUser.displayName, email: loggedInUser.email, photo: loggedInUser.photoURL, role: 'Student' };
+                fetch('https://summer-camp-school-server-rho-sandy.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         "content-type": "application/json"
@@ -57,6 +58,10 @@ const Login = () => {
                     })
             })
     }
+
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+    };
 
 
     return (
@@ -77,7 +82,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" placeholder="Password" {...register("Password", { required: true, min: 6, maxLength: 12, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/i })} className="input input-bordered" />
+                            <input type={passwordShown ? "text" : "password"} placeholder="Password" {...register("Password", { required: true, min: 6, maxLength: 12, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/i })} className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
                             <input className="btn bg-slate-300" type="submit" value="Login" />
@@ -89,6 +94,9 @@ const Login = () => {
                             <p className='mt-5'><small>Dont have an account? </small><Link to="/register"><span>Register</span></Link></p>
                         </div>
                     </form>
+                    <div>
+                        <button className='btn btn-block bg-slate-300' onClick={togglePassword}>Show/hide Password</button>
+                    </div>
                 </div>
             </div>
         </div>

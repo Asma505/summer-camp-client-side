@@ -24,7 +24,7 @@ const AddAClass = () => {
         const newCourse = { class_name, class_image, instructor_name, email, available_seats, price, instructor_image, num_students, status: 'pending', feedback: '' };
         console.log(newCourse);
 
-        fetch('http://localhost:5000/details', {
+        fetch('https://summer-camp-school-server-rho-sandy.vercel.app/details', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

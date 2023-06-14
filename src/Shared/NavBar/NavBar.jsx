@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import './NavBar.css'
 import { AuthContext } from "../../providers/AuthProvider";
 
-
-
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('light');    
 
     const toggleTheme = () => {
         if (theme === 'light') {
@@ -31,7 +29,7 @@ const NavBar = () => {
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/instructors'>Instructors</Link></li>
         <li><Link to='/classes'>Classes</Link></li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
+        <li><Link to='/dashboard/welcome'>Dashboard</Link></li>
     </>
     return (
         <div>

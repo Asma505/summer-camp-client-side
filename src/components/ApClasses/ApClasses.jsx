@@ -25,7 +25,7 @@ const ApClasses = ({ aClass }) => {
         if (user && user.email) {
             const selectedCourse = { courseId: _id, courseName: class_name, courseImage: class_image, instructorName: instructor_name, availableSeats: available_seats, price, email: user.email };
 
-            fetch('http://localhost:5000/course', {
+            fetch('https://summer-camp-school-server-rho-sandy.vercel.app/course', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

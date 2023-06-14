@@ -17,7 +17,7 @@ const Update = () => {
         const update = {price};
         console.log(update);
 
-        fetch(`http://localhost:5000/mycourse/${_id}`, {
+        fetch(`https://summer-camp-school-server-rho-sandy.vercel.app/mycourse/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
